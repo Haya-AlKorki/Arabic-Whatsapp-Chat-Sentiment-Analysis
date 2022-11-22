@@ -217,7 +217,7 @@ def get_word_cloud_negative(self):
         data = arabic_reshaper.reshape(' '.join(self[self['Sentiment'] == 'negative'].Normalized_Text))
         artext = get_display(data)
         # Create and generate a word cloud image:
-        wordcloud = WordCloud(max_font_size=80, max_words=30, background_color="white").generate(artext)
+        wordcloud = WordCloud(font_path="Arial.ttf",max_font_size=80, max_words=30, background_color="white").generate(artext)
 
         # Display the generated image:
         plt.imshow(wordcloud, interpolation='bilinear')
@@ -233,7 +233,7 @@ def get_word_cloud_positive(self):
         data = arabic_reshaper.reshape(' '.join(self[self['Sentiment'] == 'positive'].Normalized_Text))
         artext = get_display(data)
         # Create and generate a word cloud image:
-        wordcloud = WordCloud( max_font_size=80, max_words=30, background_color="white").generate(
+        wordcloud = WordCloud(font_path="Arial.ttf", max_font_size=80, max_words=30, background_color="white").generate(
             artext)
 
         # Display the generated image:
@@ -251,7 +251,7 @@ def get_word_cloud_neutral(self):
         data = arabic_reshaper.reshape(' '.join(self[self['Sentiment'] == 'neutral'].Normalized_Text))
         artext = get_display(data)
         # Create and generate a word cloud image:
-        wordcloud = WordCloud(max_font_size=80, max_words=30, background_color="white").generate(
+        wordcloud = WordCloud(font_path="Arial.ttf", max_font_size=80, max_words=30, background_color="white").generate(
             artext)
 
         # Display the generated image:
