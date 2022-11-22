@@ -61,7 +61,7 @@ if uploaded_file is not None:
 
 
         st.subheader(f'Statistics For: {selected_user}')
-        u = len(user_list)
+        u = len(data['User'].iloc[1:].unique().tolist())
         st.header("Total members:")
         st.title(u)
 
