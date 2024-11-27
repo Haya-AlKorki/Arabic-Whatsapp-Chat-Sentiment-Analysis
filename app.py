@@ -40,8 +40,6 @@ if uploaded_file is not None:
     data['Sentiment'] = pred
 
 
-
-
     data['value'] = data.apply(lambda row: stats.sentiment(row), axis=1)
 
     st.dataframe(data)
@@ -115,23 +113,24 @@ if uploaded_file is not None:
 
         with col2:
             st.header("Most busy month")
-            busy_month = stats.month_activity_map(selected_user, data,1)
+
+            # Ensure the 'Date' column is in datetime format
+            data['Date'] = pd.to_datetime(data['Date'],
+                                          errors='coerce')  # Replace 'Date' with the actual column name if different
+
+            # Extract month from the datetime
+            data['Month'] = data['Date'].dt.month
+
+            # Use your stats function to aggregate data by month (make sure it's implemented in your stats.py)
+            busy_month = stats.month_activity_map(selected_user, data, 1)
+
+            # Plot the most busy month
             fig, ax = plt.subplots()
-            ax.bar(busy_month.index, busy_month.values, color='mediumseagreen')
+            ax.bar(busy_month.index, busy_month.values, color='lightblue')  # You can change the color if desired
             plt.xticks(rotation='vertical')
             st.pyplot(fig)
-        period = []
-        for hour in data[['day_name', 'hour']]['hour']:
-            if hour == 23:
-                period.append(str(hour) + "-" + str('00'))
-            elif hour == 0:
-                period.append(str('00') + "-" + str(hour + 1))
-            else:
-                period.append(str(hour) + "-" + str(hour + 1))
 
-
-
-    ###############################################################################
+        ###############################################################################
         if selected_user == 'Overall':
             st.title("Most Busy Users")
             x, new_df = stats.most_busy_users(data)
